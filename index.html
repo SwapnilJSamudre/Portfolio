@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Swapnil Samudre — Senior Power BI & Data Analytics Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --coral:    #FF5C5C;
+    --amber:    #FFB347;
+    --lime:     #A8E063;
+    --cyan:     #38D9F5;
+    --violet:   #B57BFF;
+    --ink:      #0D0D0D;
+    --ink2:     #1A1A1A;
+    --ink3:     #262626;
+    --muted:    #888;
+    --white:    #F8F8F6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* ── Custom Cursor ── */
+  #cursor {
+    width: 14px; height: 14px;
+    background: var(--coral);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    backdrop-filter: blur(14px);
+    background: rgba(13,13,13,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--coral); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── Hero ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(90px); opacity: 0.18; pointer-events: none;
+  }
+  .blob-1 { width: 500px; height: 500px; background: var(--coral);  top: -100px; right: -120px; animation: drift 9s ease-in-out infinite alternate; }
+  .blob-2 { width: 400px; height: 400px; background: var(--violet); bottom: 0;   left: -100px;  animation: drift 11s ease-in-out infinite alternate-reverse; }
+  .blob-3 { width: 300px; height: 300px; background: var(--cyan);   top: 40%;    left: 42%;     animation: drift 13s ease-in-out infinite alternate; }
+
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(30px, 25px) scale(1.08); }
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem; color: var(--lime);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-name .line2 { color: var(--coral); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted); font-weight: 300;
+    max-width: 560px;
+    margin-top: 1.8rem;
+    opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+  }
+
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem;
+    opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+  }
+  .pill {
+    display: inline-block;
+    padding: 0.38rem 1rem;
+    border-radius: 999px;
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.04em;
+    border: 1px solid;
+  }
+  .pill-coral  { border-color: var(--coral);  color: var(--coral);  }
+  .pill-amber  { border-color: var(--amber);  color: var(--amber);  }
+  .pill-lime   { border-color: var(--lime);   color: var(--lime);   }
+  .pill-cyan   { border-color: var(--cyan);   color: var(--cyan);   }
+  .pill-violet { border-color: var(--violet); color: var(--violet); }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-top: 2.8rem;
+    opacity: 0; animation: fadeUp 0.7s 0.85s forwards;
+  }
+  .btn {
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 0.88rem;
+    letter-spacing: 0.04em; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn:hover { transform: translateY(-3px); }
+  .btn-primary { background: var(--coral); color: #fff; box-shadow: 0 8px 32px rgba(255,92,92,0.35); }
+  .btn-primary:hover { box-shadow: 0 12px 40px rgba(255,92,92,0.5); }
+  .btn-outline { border: 1.5px solid rgba(255,255,255,0.2); color: var(--white); background: transparent; }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section Common ── */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+  .section-title em { font-style: normal; color: var(--coral); }
+
+  /* ── Impact Numbers ── */
+  #impact { background: var(--ink2); }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .metric-card {
+    background: var(--ink2);
+    padding: 2.4rem 2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    transition: background 0.25s;
+  }
+  .metric-card:hover { background: var(--ink3); }
+  .metric-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem; font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .metric-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+  /* ── Experience ── */
+  #experience { background: var(--ink); }
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 12px; bottom: 12px;
+    width: 1px; background: rgba(255,255,255,0.08);
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0 2.5rem 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute; left: -5px; top: 2.8rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 14px var(--coral);
+  }
+  .exp-meta { }
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; color: var(--muted);
+    letter-spacing: 0.06em; margin-bottom: 0.4rem;
+  }
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    color: var(--white);
+  }
+  .exp-location { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+  .exp-role span {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 500;
+    padding: 0.2rem 0.7rem; border-radius: 4px;
+    margin-left: 0.8rem; vertical-align: middle;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+  .tag-current { background: rgba(168,224,99,0.15); color: var(--lime); }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li {
+    font-size: 0.9rem; color: rgba(248,248,246,0.75);
+    padding-left: 1.2rem; position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--coral);
+  }
+  .exp-bullets strong { color: var(--white); font-weight: 500; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+  .exp-tag {
+    font-size: 0.7rem; font-family: 'DM Mono', monospace;
+    padding: 0.25rem 0.65rem; border-radius: 4px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Projects ── */
+  #projects { background: var(--ink2); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--ink3);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+  .card-coral::before   { background: var(--coral);  }
+  .card-amber::before   { background: var(--amber);  }
+  .card-lime::before    { background: var(--lime);   }
+  .card-cyan::before    { background: var(--cyan);   }
+  .card-violet::before  { background: var(--violet); }
+  .card-coral:hover   { border-color: rgba(255,92,92,0.3);  }
+  .card-amber:hover   { border-color: rgba(255,179,71,0.3); }
+  .card-lime:hover    { border-color: rgba(168,224,99,0.3); }
+  .card-cyan:hover    { border-color: rgba(56,217,245,0.3); }
+  .card-violet:hover  { border-color: rgba(181,123,255,0.3); }
+
+  .project-emoji { font-size: 1.8rem; }
+  .project-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 700;
+    line-height: 1.2; color: var(--white);
+  }
+  .project-desc { font-size: 0.87rem; color: rgba(248,248,246,0.65); line-height: 1.6; }
+  .project-highlights { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.2rem; }
+  .highlight {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    color: var(--white); font-weight: 500;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 1rem; }
+  .stack-tag {
+    font-size: 0.68rem; font-family: 'DM Mono', monospace;
+    padding: 0.2rem 0.6rem; border-radius: 4px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    text-decoration: none; margin-top: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  /* ── Skills ── */
+  #skills { background: var(--ink); }
+  .skills-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .skill-group-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .skill-bars { display: flex; flex-direction: column; gap: 1rem; }
+  .skill-bar-item { display: flex; flex-direction: column; gap: 0.45rem; }
+  .skill-bar-label { display: flex; justify-content: space-between; font-size: 0.82rem; }
+  .skill-bar-label span:first-child { color: var(--white); }
+  .skill-bar-label span:last-child  { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.72rem; }
+  .skill-bar-track {
+    height: 5px; border-radius: 99px;
+    background: rgba(255,255,255,0.07); overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; border-radius: 99px;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 1s cubic-bezier(0.23,1,0.32,1);
+  }
+  .skill-bar-fill.animated { transform: scaleX(1); }
+
+  /* ── Contact ── */
+  #contact {
+    background: var(--ink2);
+    text-align: center;
+    padding: 6rem 3rem;
+  }
+  .contact-inner { max-width: 620px; margin: 0 auto; }
+  .contact-inner .section-title { margin-bottom: 1rem; }
+  .contact-inner p { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; }
+  .contact-links {
+    display: flex; justify-content: center;
+    flex-wrap: wrap; gap: 1rem;
+    margin-top: 2rem;
+  }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: 1.8rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; color: var(--muted);
+  }
+  footer a { color: var(--coral); text-decoration: none; }
+
+  /* ── Scroll animation ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section, #hero { padding: 5rem 1.5rem 4rem; }
+    .exp-item { grid-template-columns: 1fr; padding-left: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">SS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-tag">Senior Power BI Developer &amp; Data Analytics Engineer</div>
+  <h1 class="hero-name">
+    Swapnil<br/><span class="line2">Samudre.</span>
+  </h1>
+  <p class="hero-sub">I build BI ecosystems that don't just report — they decide. 5+ years turning fragmented enterprise data into clear, scalable, decision-ready intelligence across 40+ global markets.</p>
+
+  <div class="hero-pills">
+    <span class="pill pill-coral">Power BI Expert</span>
+    <span class="pill pill-amber">Azure Synapse</span>
+    <span class="pill pill-lime">Advanced DAX</span>
+    <span class="pill pill-cyan">SQL &amp; Python</span>
+    <span class="pill pill-violet">ML &amp; Predictive Analytics</span>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#contact" class="btn btn-primary">📬 Hire Me</a>
+    <a href="#projects" class="btn btn-outline">View Projects →</a>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="section-label">By the numbers</div>
+  <h2 class="section-title reveal">Impact that <em>moves</em> the needle</h2>
+  <div class="metrics-grid reveal">
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--coral)">56%</div>
+      <div class="metric-desc">Data latency reduced at Imperial Brands across 40+ global markets</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--amber)">50%</div>
+      <div class="metric-desc">Refresh cycle reduction via optimised ETL pipelines &amp; model tuning</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--lime)">100+</div>
+      <div class="metric-desc">Manual hours saved per month through automated data validation</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--cyan)">40+</div>
+      <div class="metric-desc">Global markets covered — supply chain, logistics &amp; demand planning</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--violet)">82%</div>
+      <div class="metric-desc">ML prediction accuracy on cab fare forecasting model</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--coral)">30%</div>
+      <div class="metric-desc">Report efficiency improvement delivered end-to-end at NeuIQ</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--amber)">22%</div>
+      <div class="metric-desc">Campaign ROI uplift via K-Means credit card segmentation model</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num" style="color:var(--lime)">15%</div>
+      <div class="metric-desc">Operational efficiency uplift co-designing KPIs with supply chain leaders</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-title reveal">Where I've <em>built</em></h2>
+  <div class="timeline">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Dec 2025 — Present</div>
+        <div class="exp-company">NeuIQ</div>
+        <div class="exp-location">Mumbai, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Lead Power BI Analyst <span class="tag-current">Current</span></div>
+        <ul class="exp-bullets">
+          <li>Leading the <strong>Sandler Sales Performance Ecosystem</strong> — multi-persona dashboards for executive, facilitator, manager, team, and individual views</li>
+          <li>Managing <strong>2 junior analysts</strong> and driving end-to-end BI delivery from requirement gathering to deployment</li>
+          <li>Embedded Power BI into NeuIQ's AI-powered analytics console, improving usability and client adoption</li>
+          <li>Built unified data layer across <strong>MySQL, PostgreSQL &amp; Azure Synapse</strong>; reduced dashboard load time by <strong>25–30%</strong></li>
+          <li>Implemented RLS for secure, role-based reporting across multiple stakeholder groups</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">Azure Synapse</span>
+          <span class="exp-tag">MySQL</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">RLS</span><span class="exp-tag">Embedded Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2024 — Mar 2025</div>
+        <div class="exp-company">Imperial Brands</div>
+        <div class="exp-location">Mumbai, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Power BI Developer</div>
+        <ul class="exp-bullets">
+          <li>Built enterprise dashboards for <strong>40+ global markets</strong> — supply chain, demand, inventory &amp; logistics</li>
+          <li>Reduced data latency by <strong>56%</strong> and refresh cycles by <strong>50%</strong> through ETL &amp; model optimisation</li>
+          <li>Managed a team of <strong>5+ analysts</strong> delivering analytics for planning, procurement &amp; warehouse visibility</li>
+          <li>Automated Python-based data quality validations saving <strong>100+ manual hours/month</strong></li>
+          <li>Co-designed KPIs with supply chain leaders → <strong>15% uplift in operational efficiency</strong></li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Power BI</span><span class="exp-tag">ADF</span><span class="exp-tag">Snowflake</span>
+          <span class="exp-tag">Synapse</span><span class="exp-tag">Python</span><span class="exp-tag">Star Schema</span><span class="exp-tag">RLS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jun 2022 — Oct 2023</div>
+        <div class="exp-company">AuroraIT</div>
+        <div class="exp-location">Mumbai, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Data Analyst</div>
+        <ul class="exp-bullets">
+          <li>Designed Power BI dashboards for procurement &amp; financial reporting across <strong>$500M+ in spend</strong></li>
+          <li>Built Power Query dataflows &amp; optimised SQL views, improving refresh performance by <strong>20%</strong></li>
+          <li>Enhanced reusable DAX templates enabling consistent logic across cross-functional teams</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Power BI</span><span class="exp-tag">SQL</span><span class="exp-tag">DAX</span><span class="exp-tag">Power Query</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2020 — May 2022</div>
+        <div class="exp-company">Sutherland</div>
+        <div class="exp-location">Mumbai, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Data Analyst</div>
+        <ul class="exp-bullets">
+          <li>Built analytical dashboards in Power BI &amp; Tableau for customer behaviour, engagement &amp; retention</li>
+          <li>Improved SQL &amp; Python pipelines driving a <strong>30% improvement</strong> in refresh speed &amp; stability</li>
+          <li>DAX-based churn indicators supported business actions that lowered churn by <strong>12%</strong></li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">Python</span><span class="exp-tag">SQL</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2 class="section-title reveal">Things I've <em>shipped</em></h2>
+  <div class="projects-grid">
+
+    <div class="project-card card-lime reveal">
+      <div class="project-emoji">🏆</div>
+      <div class="project-type">Enterprise · Live · Lead Role</div>
+      <div class="project-name">Sandler Sales Performance Ecosystem</div>
+      <div class="project-desc">Multi-stakeholder BI platform tracking seller performance, revenue generation, competency-to-skill mapping and training ROI — across executive, facilitator, manager, team &amp; individual personas.</div>
+      <div class="project-highlights">
+        <div class="highlight">🎯 5-persona RLS dashboard architecture</div>
+        <div class="highlight">⚡ Unified data: MySQL + PostgreSQL + Synapse</div>
+        <div class="highlight">📊 Embedded in AI-powered analytics console</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span><span class="stack-tag">DAX</span><span class="stack-tag">Azure Synapse</span><span class="stack-tag">RLS</span><span class="stack-tag">Embedded Analytics</span>
+      </div>
+    </div>
+
+    <div class="project-card card-amber reveal">
+      <div class="project-emoji">🌍</div>
+      <div class="project-type">Enterprise · Imperial Brands</div>
+      <div class="project-name">Global Supply Chain Intelligence Dashboard</div>
+      <div class="project-desc">Enterprise BI ecosystem spanning 40+ markets — supply chain, demand planning, inventory, logistics and procurement with automated ADF/Synapse refresh pipelines.</div>
+      <div class="project-highlights">
+        <div class="highlight">📉 56% data latency reduction</div>
+        <div class="highlight">🕐 100+ manual hours saved monthly</div>
+        <div class="highlight">📈 15% uplift in operational efficiency</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span><span class="stack-tag">ADF</span><span class="stack-tag">Snowflake</span><span class="stack-tag">Python</span><span class="stack-tag">Star Schema</span>
+      </div>
+    </div>
+
+    <div class="project-card card-violet reveal">
+      <div class="project-emoji">💳</div>
+      <div class="project-type">Machine Learning · Python</div>
+      <div class="project-name">Customer Segmentation &amp; Churn Prediction</div>
+      <div class="project-desc">ML-powered segmentation for 9,000+ credit card users using K-Means clustering and PCA to uncover high-value customer personas and drive targeted campaign strategy.</div>
+      <div class="project-highlights">
+        <div class="highlight">🎯 56% of customers identified as high-value targets</div>
+        <div class="highlight">📈 22% campaign ROI uplift · 13% churn reduction</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">K-Means</span><span class="stack-tag">PCA</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">pandas</span>
+      </div>
+      <a href="https://github.com/roswel0710/Customer-Segmentation-and-Churn-Prediction" target="_blank" class="project-link" style="color:var(--violet)">View on GitHub →</a>
+    </div>
+
+    <div class="project-card card-coral reveal">
+      <div class="project-emoji">🪔</div>
+      <div class="project-type">Python · EDA · Retail</div>
+      <div class="project-name">Diwali Store Sales Analysis</div>
+      <div class="project-desc">Deep EDA into India's Diwali festive sales data identifying high-converting customer segments to optimise marketing campaigns across online channels.</div>
+      <div class="project-highlights">
+        <div class="highlight">🎯 Married women 26–35 yrs are 30% more likely to buy</div>
+        <div class="highlight">📊 20% higher conversion on targeted campaigns</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">pandas</span><span class="stack-tag">matplotlib</span><span class="stack-tag">seaborn</span><span class="stack-tag">EDA</span>
+      </div>
+      <a href="https://github.com/roswel0710/Python-Diwali-Store-Sales-Analysis" target="_blank" class="project-link" style="color:var(--coral)">View on GitHub →</a>
+    </div>
+
+    <div class="project-card card-cyan reveal">
+      <div class="project-emoji">📦</div>
+      <div class="project-type">Power BI · E-Commerce</div>
+      <div class="project-name">Madhav E-Commerce Sales Dashboard</div>
+      <div class="project-desc">End-to-end Power BI dashboard for pan-India online retail tracking with complex drill-downs, slicers and cross-table joins for self-serve analytics.</div>
+      <div class="project-highlights">
+        <div class="highlight">👗 Clothing = 63% market share · Printers = top SKU</div>
+        <div class="highlight">🧮 Custom AOV column built with DAX</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span><span class="stack-tag">DAX</span><span class="stack-tag">Data Modelling</span><span class="stack-tag">Slicers</span>
+      </div>
+      <a href="https://github.com/roswel0710/Madhav-Ecommerce-Sales-Data-Analysis" target="_blank" class="project-link" style="color:var(--cyan)">View on GitHub →</a>
+    </div>
+
+    <div class="project-card card-amber reveal">
+      <div class="project-emoji">🚕</div>
+      <div class="project-type">Machine Learning · Regression</div>
+      <div class="project-name">Cab Fare Price Prediction</div>
+      <div class="project-desc">ML regression system for a cab startup entering national scale operations — predicting ride fares to enable data-driven pricing strategy and revenue forecasting.</div>
+      <div class="project-highlights">
+        <div class="highlight">🎯 82% prediction accuracy</div>
+        <div class="highlight">💰 Est. 75% revenue growth potential</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">Regression</span><span class="stack-tag">Feature Engineering</span><span class="stack-tag">scikit-learn</span>
+      </div>
+      <a href="https://github.com/roswel0710/Python-Cab-Fare-Price-Prediction" target="_blank" class="project-link" style="color:var(--amber)">View on GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title reveal">What I <em>bring</em></h2>
+  <div class="skills-wrapper reveal">
+    <div>
+      <div class="skill-group-title" style="color:var(--coral)">Business Intelligence</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Advanced DAX</span><span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:97%;background:var(--coral)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Power BI Service &amp; Deployment</span><span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%;background:var(--coral)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Power Query / M</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;background:var(--coral)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Star Schema Modelling</span><span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:97%;background:var(--coral)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Row-Level Security (RLS)</span><span>Expert</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%;background:var(--coral)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="skill-group-title" style="color:var(--amber)">Cloud &amp; Data Engineering</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Azure Synapse Analytics</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;background:var(--amber)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Azure Data Factory (ADF)</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;background:var(--amber)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Snowflake</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%;background:var(--amber)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>SQL (CTEs, Window Functions)</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;background:var(--amber)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>MySQL / PostgreSQL</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;background:var(--amber)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="skill-group-title" style="color:var(--lime)">Python &amp; Machine Learning</div>
+      <div class="skill-bars">
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Python (pandas, numpy)</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:87%;background:var(--lime)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>scikit-learn (ML Pipelines)</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%;background:var(--lime)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>K-Means / PCA / Clustering</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%;background:var(--lime)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>Data Visualisation (matplotlib)</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:84%;background:var(--lime)"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-label"><span>EDA &amp; Statistical Analysis</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;background:var(--lime)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title reveal">Let's build something <em>great</em></h2>
+    <p>Open to Senior BI, Data Analytics, or Analytics Engineering roles in Mumbai, UAE, UK, Europe, or Remote. Let's talk.</p>
+    <a href="mailto:swapnil.samudre3@gmail.com" class="btn btn-primary" style="display:inline-flex;">📬 swapnil.samudre3@gmail.com</a>
+    <div class="contact-links reveal">
+      <a href="https://www.linkedin.com/in/swapnilsamudre/" target="_blank" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm2-3a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/roswel0710" target="_blank" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://swapnilsamudre.carrd.co/" target="_blank" class="contact-link">
+        🌐 Portfolio
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Swapnil Samudre · Mumbai, India</span>
+  <span>Built with intention · <a href="mailto:swapnil.samudre3@gmail.com">swapnil.samudre3@gmail.com</a></span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.left = (mx - 7) + 'px';
+    cursor.style.top  = (my - 7) + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) *.12;
+    ring.style.left = (rx - 18) + 'px';
+    ring.style.top  = (ry - 18) + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+    el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Skill bar animation
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill').forEach((b, i) => {
+          setTimeout(() => b.classList.add('animated'), i * 120);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-wrapper').forEach(el => barObs.observe(el));
+</script>
+</body>
+</html>
